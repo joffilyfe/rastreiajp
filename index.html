@@ -1,0 +1,32 @@
+<html>
+<head>
+  <script src="dist/js/tracker.min.js"></script>
+  <link rel="stylesheet" href="dist/css/leaflet.css">
+  <link rel="stylesheet" href="dist/css/main.css">
+  <link rel="stylesheet" href="dist/icons/css/map-icons.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+  <meta charset="utf-8">
+  <title>Rastreia JP</title>
+</head>
+
+<div id="login" class="">
+  <h1 class="title">Localiza JP</h1>
+  <form id="form-login" class="form-login">
+    <p>Para consultar os horários dos ônibus é preciso fazer login no sistema</p>
+    <input type="text" placeholder="CPF" name="usuario" class="form-field">
+    <input type="password" placeholder="Senha" name="senha" class="form-field">
+    <button class="form-btn -yellow">Login</button>
+  </form>
+</div>
+
+<div class="stop-info">
+  <div class="header">CLOSE</div>
+  <ul id="bus-list"></ul>
+</div>
+
+
+<div id="map"></div>
+<script>
+  new Rastreia.Tracker();
+</script>
+</html>
