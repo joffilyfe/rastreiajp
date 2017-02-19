@@ -1,10 +1,12 @@
 import L from 'leaflet';
+import Stop from '../view/stop.js';
 
 export default class Map {
 
   constructor(params) {
     this.map = this.setup(params);
     this.findUser();
+    this.addMark();
   }
 
   setup(params) {
@@ -42,8 +44,19 @@ export default class Map {
     });
   }
 
-  addMark(location) {
-    var busIcon = L.divIcon({className: 'map-icon map-icon-bus-station'});
-    L.marker(location, {icon: busIcon}).addTo(this.map);
+  addMark() {
+    var positions = [
+      {latitude: -7.149273346503699, longitude: -34.8425441980362},
+      {latitude: -7.148086380373045, longitude: -34.84359562397004},
+      {latitude: -7.1514609755513705, longitude: -34.85128283500672},
+      {latitude: -7.1357641059487875, longitude: -34.8755031824112},
+      {latitude: -7.097900979464709, longitude: -34.84474897384644},
+      {latitude: -7.152461639359923, longitude: -34.838719367980964},
+      {latitude: -7.117953441932844, longitude: -34.89006757736207}
+    ];
+
+    positions.forEach((position) => {
+      new Stop(position).build().addTo(this.map);
+    });
   }
 }
