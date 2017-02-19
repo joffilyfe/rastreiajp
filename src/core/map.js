@@ -9,11 +9,18 @@ export default class Map {
 
   setup(params) {
     let map = L.map(params.id).setView(params.location, 12);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/{type}/{mapID}/normal.day/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}', {
+      attribution: 'Map &copy; 1987-2014 <a href="http://developer.here.com">HERE</a>',
+      subdomains: '1234',
+      mapID: 'newest',
+      app_id: 'AXOe436PxWbYjlecdvLz',
+      app_code: 'VFyswxuc1jtQ6TV6iJyg2w',
+      base: 'base',
       maxZoom: 18,
-      id: 'mapbox.streets',
-      accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw'
+      type: 'maptile',
+      language: 'eng',
+      format: 'png8',
+      size: '256'
     }).addTo(map);
     return map;
   }
@@ -23,7 +30,6 @@ export default class Map {
       var radius = e.accuracy / 2;
       L.marker(e.latlng).addTo(map).bindPopup(`Você está em um raio de ${radius}m de distância.`).openPopup();
       L.circle(e.latlng, radius).addTo(map);
-      // map.panTo(e.latlng);
       map.setZoomAround(e.latlng, 72);
     };
 
