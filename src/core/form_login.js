@@ -3,11 +3,13 @@ import Request from '../util/request.js';
 
 export default class FormLogin {
   constructor() {
+    this.container = document.querySelector('#login');
     this.form = document.querySelector('#form-login');
-    this.response = null;
+    this.token = localStorage.getItem('tokenTracker');
   }
 
   build() {
+    this.toggleContainer();
     this.form.addEventListener('submit', (e) => { this.getToken(e); });
   }
 
@@ -20,15 +22,39 @@ export default class FormLogin {
     };
 
     if (!params.usuario.trim() || !params.senha.trim()) {
-      console.log('Informe um usuário senha');
+      alert('Por favor, informe um login e senha válidos');
       return;
     }
 
     let request = new Request();
     request.post(API.LOGIN, params, (data) => {
-      // #TODO: Build a User and set a Cookie or localStorage
-      console.log(JSON.parse(data));
+      let response = JSON.parse(data);
+      if (!!response.Token) {
+        this.setToken(response.Token);
+        this.toggleContainer();
+      }
     });
+  }
+
+  isSigned() {
+    if (!!this.token) {
+      return true;
+    }
+
+    return false;
+  }
+
+  toggleContainer() {
+    if (this.isSigned()) {
+      this.container.style.display = 'none';
+    } else {
+      this.container.style.display = 'block';
+    }
+  }
+
+  setToken(token) {
+    localStorage.setItem('tokenTracker', token);
+    this.token = token;
   }
 
 }
